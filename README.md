@@ -1,7 +1,7 @@
 # Data-Cleaning-Transformation
 I started by exploring data types and missing values in the dataset
 
-first, numeric columns ['price' , 'odometer']:
+## first, numeric columns ['price' , 'odometer']:
 
 i found high skewness in them (right) due to some outliers
 
