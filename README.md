@@ -18,34 +18,34 @@ i tried evaluate these outliers and here is what i've found
 
 1- price ranges >> 
 
-Zero prices:  32,895 rows
-
-0 < prices < 100 :  3,327 rows
-
-100 <= prices < 1000 :  10,093 rows 
-
-1000 <= prices <= 10,000 :  129,922 rows
-
-10000 < prices <= 100,000 :  249,988 rows
-
-prices > 100,000:  655 rows
+    Zero prices:  32,895 rows
+    
+    0 < prices < 100 :  3,327 rows
+    
+    100 <= prices < 1000 :  10,093 rows 
+    
+    1000 <= prices <= 10,000 :  129,922 rows
+    
+    10000 < prices <= 100,000 :  249,988 rows
+    
+    prices > 100,000:  655 rows
 
 
 2- odometer ranges >>
 
-odometer <= 10 :  5343
-
-odometer <= 100 : 6974
-
-odometer <= 1,000 : 10928
-
-odometer <= 10,000 : 29761
-
-odometer <= 100,000 : 247141
-
-odometer <= 1000,000 :  421904
-
-odometer <= 10,000,000 : 422480
+    odometer <= 10 :  5343
+    
+    odometer <= 100 : 6974
+    
+    odometer <= 1,000 : 10928
+    
+    odometer <= 10,000 : 29761
+    
+    odometer <= 100,000 : 247141
+    
+    odometer <= 1000,000 :  421904
+    
+    odometer <= 10,000,000 : 422480
 
 
 so i decided to choose these ranges making the most sense of data and also less skewness
