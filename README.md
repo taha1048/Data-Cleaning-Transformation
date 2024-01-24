@@ -15,7 +15,7 @@ with an overall shape like this :
 
 
 
-i tried evaluate these outliers and here is what i've found
+i tried to evaluate these outliers and here is what i've found
 
 1- price ranges >> 
 
