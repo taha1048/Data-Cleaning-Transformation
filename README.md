@@ -13,7 +13,7 @@ with an overall shape like this :
 
 
 i tried evaluate these outliers and here is what i've found
-1- price ranges >>
+1- price ranges >> \n
 Zero prices:  32,895 rows
 0 < prices < 100 :  3,327 rows
 100 <= prices < 1000 :  10,093 rows 
