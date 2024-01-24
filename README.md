@@ -5,12 +5,13 @@ first, numeric columns ['price' , 'odometer']:
 
 i found high skewness in them (right) due to some outliers
 
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/97c4892b-5c16-4278-b34b-bb331a362723)
 
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4d7f72f0-07dd-454e-a0b0-cb253985422d)
 
 with an overall shape like this :
 
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/a8293b46-390a-44ed-a426-25bcac1cc770)
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/b44149cb-ecdd-4270-a608-3661cfb23231)
+
 
 
 
