@@ -49,10 +49,13 @@ i tried evaluate these outliers and here is what i've found
     odometer <= 10,000,000 : 422480
 
 
-so i decided to choose these ranges making the most sense of data and also less skewness
-price between(1,000 & 100,000) 
-odometer less than 1000,000 
-and here is the result 
+so i decided to choose these ranges 
+
+    price between(1,000 & 100,000)
+    
+    odometer less than 1000,000 
+
+making the most sense of data and also less skewness, here is the result 
 
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/ba84a941-12e4-49c7-a6a4-e8682f74fa85)
