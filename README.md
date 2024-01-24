@@ -2,6 +2,8 @@
 I started by exploring data types and missing values in the dataset
 first, numeric columns ['price' , 'odometer']:
 i found high skewness in them (right) due to some outliers
+
+
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4d7f72f0-07dd-454e-a0b0-cb253985422d)
 
 
