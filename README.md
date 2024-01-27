@@ -25,69 +25,37 @@ Welcome to the **Data-Cleaning-Transformation** project! The primary objective o
 
 The dataset contains information about used cars from 1900 to 2021, with a total of 426,880 entries and 26 columns.
 
-#### Data Columns and Definitions:
+**"Dataset Characteristics: Unique Values, Missing Data, and Definitions"**
 
-| Column        | Non-Null Count | Dtype  | Description                                      |
-|---------------|----------------|--------|--------------------------------------------------|
-| id            | 426,880        | int64  | Unique identifier for each car listing           |
-| url           | 426,880        | object | URL of the car listing                           |
-| region        | 426,880        | object | Geographic region where the car is located       |
-| region_url    | 426,880        | object | URL of the region                                |
-| price         | 426,880        | int64  | Price of the used car (in currency)              |
-| year          | 425,675        | float64| Year of the car's manufacturing                  |
-| manufacturer  | 409,234        | object | Manufacturer or brand of the car                 |
-| model         | 421,603        | object | Model of the car                                 |
-| condition     | 252,776        | object | Condition of the car (e.g., new, used, like new)|
-| cylinders     | 249,202        | object | Number of cylinders in the car's engine          |
-| fuel          | 423,867        | object | Fuel type (e.g., gas, diesel)                    |
-| odometer      | 422,480        | float64| Odometer reading of the car (in miles)           |
-| title_status  | 418,638        | object | Title status of the car (e.g., clean, salvage)   |
-| transmission  | 424,324        | object | Type of transmission (e.g., automatic, manual)  |
-| VIN           | 265,838        | object | Vehicle Identification Number                   |
-| drive         | 296,313        | object | Drive type (e.g., 4wd, fwd)                       |
-| size          | 120,519        | object | Size of the car (e.g., compact, full-size)       |
-| type          | 334,022        | object | Type of car body (e.g., sedan, SUV)              |
-| paint_color   | 296,677        | object | Exterior paint color                            |
-| image_url     | 426,812        | object | URL of the car's image                           |
-| description   | 426,810        | object | Description of the car listing                   |
-| county        | 0              | float64| No non-null values for the 'county' column      |
-| state         | 426,880        | object | State where the car is located                   |
-| lat           | 420,331        | float64| Latitude of the car's location                   |
-| long          | 420,331        | float64| Longitude of the car's location                  |
-| posting_date  | 426,812        | object | Date and time when the listing was posted        |
+| Column        | Definition                                        | Unique Values | Missing Values | Missing Percentage |
+|---------------|---------------------------------------------------|---------------|----------------|---------------------|
+| id            | Unique identifier for each car listing             | 426,880       | 0              | 0.0%                |
+| url           | URL of the car listing                             | 426,880       | 0              | 0.0%                |
+| region        | Geographic region where the car is located        | 404           | 0              | 0.0%                |
+| region_url    | URL of the region                                  | 413           | 0              | 0.0%                |
+| price         | Price of the used car (in currency)                | 15,655        | 0              | 0.0%                |
+| year          | Year of the car's manufacturing                   | 114           | 1,205          | 0.28%               |
+| manufacturer  | Manufacturer or brand of the car                  | 42            | 17,646         | 4.13%               |
+| model         | Model of the car                                  | 29,667        | 5,277          | 1.24%               |
+| condition     | Condition of the car (e.g., new, used, like new)  | 6             | 174,104        | 40.79%              |
+| cylinders     | Number of cylinders in the car's engine           | 8             | 177,678        | 41.62%              |
+| fuel          | Fuel type (e.g., gas, diesel)                     | 5             | 3,013          | 0.71%               |
+| odometer      | Odometer reading of the car (in miles)            | 104,870       | 4,400          | 1.03%               |
+| title_status  | Title status of the car (e.g., clean, salvage)    | 6             | 8,242          | 1.93%               |
+| transmission  | Type of transmission (e.g., automatic, manual)   | 3             | 2,556          | 0.60%               |
+| VIN           | Vehicle Identification Number                    | 118,264       | 161,042        | 37.73%              |
+| drive         | Drive type (e.g., 4wd, fwd)                        | 3             | 130,567        | 30.59%              |
+| size          | Size of the car (e.g., compact, full-size)        | 4             | 306,361        | 71.77%              |
+| type          | Type of car body (e.g., sedan, SUV)               | 13            | 92,858         | 21.75%              |
+| paint_color   | Exterior paint color                             | 12            | 130,203        | 30.50%              |
+| image_url     | URL of the car's image                            | 241,899       | 68             | 0.02%               |
+| description   | Description of the car listing                    | 360,911       | 70             | 0.02%               |
+| county        | No non-null values for the 'county' column        | 0             | 426,880        | 100.0%              |
+| state         | State where the car is located                    | 51            | 0              | 0.0%                |
+| lat           | Latitude of the car's location                    | 53,181        | 6,549          | 1.53%               |
+| long          | Longitude of the car's location                   | 53,772        | 6,549          | 1.53%               |
+| posting_date  | Date and time when the listing was posted         | 381,536       | 68             | 0.02%               |
 
-### Dataset Characteristics: Unique Values and Missing Data:
-
-| Column        | Unique Values | Missing Values | Missing Percentage |
-|---------------|---------------|----------------|---------------------|
-| id            | 426,880       | 0              | 0.0%                |
-| url           | 426,880       | 0              | 0.0%                |
-| region        | 404           | 0              | 0.0%                |
-| region_url    | 413           | 0              | 0.0%                |
-| price         | 15,655        | 0              | 0.0%                |
-| year          | 114           | 1,205          | 0.28%               |
-| manufacturer  | 42            | 17,646         | 4.13%               |
-| model         | 29,667        | 5,277          | 1.24%               |
-| condition     | 6             | 174,104        | 40.79%              |
-| cylinders     | 8             | 177,678        | 41.62%              |
-| fuel          | 5             | 3,013          | 0.71%               |
-| odometer      | 104,870       | 4,400          | 1.03%               |
-| title_status  | 6             | 8,242          | 1.93%               |
-| transmission  | 3             | 2,556          | 0.60%               |
-| VIN           | 118,264       | 161,042        | 37.73%              |
-| drive         | 3             | 130,567        | 30.59%              |
-| size          | 4             | 306,361        | 71.77%              |
-| type          | 13            | 92,858         | 21.75%              |
-| paint_color   | 12            | 130,203        | 30.50%              |
-| image_url     | 241,899       | 68             | 0.02%               |
-| description   | 360,911       | 70             | 0.02%               |
-| county        | 0             | 426,880        | 100.0%              |
-| state         | 51            | 0              | 0.0%                |
-| lat           | 53,181        | 6,549          | 1.53%               |
-| long          | 53,772        | 6,549          | 1.53%               |
-| posting_date  | 381,536       | 68             | 0.02%               |
-
-This table provides a comprehensive overview of the dataset, including the number of unique values, missing values, and their respective percentages for each column.
 
 ## Filtering out inconsistent data
 
