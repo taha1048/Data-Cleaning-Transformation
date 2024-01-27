@@ -186,6 +186,44 @@ it contained some outlier, but i found knid of a relationship between these earl
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
 
+
+### Manufacturer & Model
+
+
+| Column        | Unique Values | Missing Values | Missing Percentage |
+|---------------|---------------|----------------|---------------------|
+| manufacturer  | 42            | 17646          | 4.13%               |
+| model         | 29667         | 5277           | 1.24%               |
+
+i deleted rows where they both are missing
+
+      # droping cars with no manufacturer and model
+      df.dropna(subset = ['manufacturer', 'model'], how = 'all', inplace = True)
+
+then filled the remaining missing value with a new category 'unknown'
+
+      # filling manufacturer and model 'unknown'
+      df['manufacturer'] = df['manufacturer'].fillna('unknown')
+      df['model'] = df['model'].fillna('unknown')
+we also got some typos in the 'model' column so i used some regular expressions to find and fill them
+with 'unknown' if thr row contains a 'manufacurer' and drop them if not.
+      
+      # creating a mask for the condition
+      mask = ((df['model'].str.contains('^[\W\d]+$') == True) & (df['manufacturer'] == 'unknown'))
+      mask2 = ((df['model'].str.contains('[@%$*#%*!=]') == True) &  (df['manufacturer'] == 'unknown'))
+      
+      # dropping typos with null manufacturer (unknown)
+      df = df[~mask]
+      df = df[~mask2]
+      
+      # filling the remaining with 'unknown'
+      df.loc[df['model'].str.contains('^[\W\d]+$') == True, 'model'] = 'unknown'
+      df.loc[df['model'].str.contains('[@%$*#%*!=]') == True, 'model'] = 'unknown'
+
+      # dropping strange inputs
+      df = df[df['model'].str.contains('[♿🔥]') == False]
+      df = df[df['model'].str.contains('^[,-./]') == False]
+
 # Handling missing values
 
 ### 1- Categorical columns with dominating values
