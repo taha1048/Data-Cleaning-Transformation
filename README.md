@@ -97,9 +97,9 @@ here is the 'year' distribution
 
 it contained some outlier, but i found knid of a relationship between these low years and the 'title_status' so i kept them.
 
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/81fad219-37ba-42e4-88e6-e2f318d78567)
 
 
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
 
 high percentage of missing values in :
 ['condition', 'cylinders', 'VIN', 'drive', 'type', 'paint_color']
