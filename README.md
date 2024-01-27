@@ -59,7 +59,7 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 
 # Filtering out inconsistent data
 
-### **First, dropping unwanted columns/rows:**
+### **1- Dropping unwanted columns/rows:**
    - useless columns or columns containing high missing values percentage['county', 'size']
    
          df.drop(['id', 'url', 'region_url', 'county', 'size','image_url', 'description'],
@@ -71,7 +71,7 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 
 
 
-### Second, numeric columns ['price', 'odometer']:
+### 2- Numeric columns ['price', 'odometer']:
 
 I found high skewness in them due to some outliers.
 
@@ -111,7 +111,7 @@ Here is the result:
 
 
 
-### Third on the list would be date columns ['year', 'posted_date']
+### 3- Date columns ['year', 'posted_date']
 
 by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500],
 
