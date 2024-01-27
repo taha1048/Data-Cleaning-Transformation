@@ -1,24 +1,7 @@
 # Data-Cleaning-Transformation
 
-Welcome to the **Data-Cleaning-Transformation** project! The primary objective of this project is to enhance the validity of the dataset, making it more suitable for various applications such as machine learning, data visualization, and data analysis. The project is organized into three distinct phases:
 
-1. **Exploratory Data Analysis (EDA):**
-   - In-depth exploration of the dataset to gain a comprehensive understanding of its characteristics.
-   - Identification of patterns, trends, and potential outliers.
 
-2. **Data Cleaning Process:**
-   - Filtering out inconsistent data to ensure data integrity.
-   - Correcting or removing typographical errors that might affect the dataset's reliability.
-   - Imputing or removing missing values to enhance the completeness of the dataset.
-
-3. **Machine Learning Algorithm for Imputation:**
-   - Utilizing machine learning algorithms to impute missing values, ensuring a robust and accurate dataset.
-
-## Table of Contents:
-1. [Overview of Data](#overview-of-data)
-2. [Filtering Inconsistent Data](#filtering-inconsistent-data)
-3. [Fixing/Removing Typos](#fixingremoving-typos)
-4. [Imputing/Removing Missing Values](#imputingremoving-missing-values)
 
 
 ### Overview of the Used Cars Dataset
@@ -26,6 +9,41 @@ Welcome to the **Data-Cleaning-Transformation** project! The primary objective o
 The dataset contains information about used cars from 1900 to 2021, with a total of 426,880 entries and 26 columns.
 
 **"Dataset Characteristics: Unique Values, Missing Data, and Definitions"**
+Certainly! Here's a table with column names, definitions, and data types:
+
+**Overview of the Used Cars Dataset**
+
+| Column        | Definition                                | Dtype     |
+|---------------|-------------------------------------------|-----------|
+| id            | Unique identifier for each listing        | int64     |
+| url           | URL of the listing                       | object    |
+| region        | Geographical region                      | object    |
+| region_url    | URL corresponding to the region           | object    |
+| price         | Price of the car                         | int64     |
+| year          | Manufacturing year of the car             | float64   |
+| manufacturer  | Manufacturer or brand of the car          | object    |
+| model         | Model of the car                         | object    |
+| condition     | Condition of the car (e.g., good, fair)  | object    |
+| cylinders     | Number of cylinders in the engine         | object    |
+| fuel          | Type of fuel used by the car              | object    |
+| odometer      | Odometer reading in miles                | float64   |
+| title_status  | Title status of the car (e.g., clean)    | object    |
+| transmission  | Transmission type (e.g., automatic)      | object    |
+| VIN           | Vehicle Identification Number            | object    |
+| drive         | Drive type (e.g., 4wd)                   | object    |
+| size          | Size of the car (e.g., compact)          | object    |
+| type          | Type of car (e.g., sedan)                | object    |
+| paint_color   | Exterior color of the car                | object    |
+| image_url     | URL of the car's image                   | object    |
+| description   | Description of the car                   | object    |
+| county        | County information (null for all entries)| float64   |
+| state         | State where the car is located           | object    |
+| lat           | Latitude of the car's location            | float64   |
+| long          | Longitude of the car's location           | float64   |
+| posting_date  | Date when the listing was posted         | object    |
+
+
+
 
 | Column        | Definition                                        | Unique Values | Missing Values | Missing Percentage |
 |---------------|---------------------------------------------------|---------------|----------------|---------------------|
@@ -57,23 +75,25 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 | posting_date  | Date and time when the listing was posted         | 381,536       | 68             | 0.02%               |
 
 
-# Filtering out inconsistent data
 
-### **1- Dropping unwanted columns/rows:**
+## **1- Dropping unwanted columns:**
    - useless columns or columns containing high missing values percentage['county', 'size']
    
          df.drop(['id', 'url', 'region_url', 'county', 'size','image_url', 'description'],
          axis = 1, inplace = True)
-   
-   - rows where the 'manufacturer' and the 'model' are missing as they provide no value
-   
-         df.dropna(subset = ['manufacturer', 'model'], how = 'all', inplace = True)
 
 
+## 2- Numeric columns ['price', 'odometer', 'lat', 'long']:
 
-### 2- Numeric columns ['price', 'odometer']:
+| Column        | Unique Values | Missing Values | Missing Percentage |
+|---------------|---------------|----------------|---------------------|
+| price         | 15,655        | 0              | 0.0%                |
+| odometer      | 104,870       | 4,400          | 1.03%               |
+| lat           | 53,181        | 6,549          | 1.53%               |
+| long          | 53,772        | 6,549          | 1.53%               |
 
-I found high skewness in them due to some outliers.
+
+I found high skewness in the ['price', 'odometer'] due to some outliers.
 
 ![Skewness Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/97c4892b-5c16-4278-b34b-bb331a362723)
 
@@ -109,7 +129,22 @@ Here is the result:
 ![Cleaned Data Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/ba84a941-12e4-49c7-a6a4-e8682f74fa85)
 
 
+after that i filled the missing values in the 'odometer' with the median.
 
+      # filling odometer with the median value
+      df['odometer'] = df['odometer'].fillna(df['odometer'].median())
+      
+and for 'lat' & 'long', i populated the nulls with median value per each region
+
+      # populating lat & long with the median value per each 'region'
+      regions = df['region'].unique()
+      
+      # Fill missing lat and long based on median values for each region
+      for region in regions:
+          median_lat = df[df['region'] == region]['lat'].median()
+          median_long = df[df['region'] == region]['long'].median()
+          df.loc[(df['region'] == region) & (df['lat'].isnull()), 'lat'] = median_lat
+          df.loc[(df['region'] == region) & (df['long'].isnull()), 'long'] = median_long
 
 ### 3- Date columns ['year', 'posted_date']
 
@@ -145,8 +180,39 @@ it contained some outlier, but i found knid of a relationship between these earl
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
 
-### Next is string or text columns ['manufacturer', 'model', 'region']
+# Handling missing values
 
+### 1- Categorical columns with dominating values
+
+| Column        | Value       | Proportion (%) |
+|---------------|-------------|-----------------|
+| transmission  | automatic   | 79.0            |
+| transmission  | other       | 15.0            |
+| transmission  | manual      | 6.0             |
+| title_status  | clean       | 97.0            |
+| title_status  | rebuilt     | 2.0             |
+| title_status  | salvage     | 1.0             |
+| fuel          | gas         | 84.0            |
+| fuel          | other       | 7.0             |
+| fuel          | diesel      | 7.0             |
+| fuel          | hybrid      | 1.0             |
+| fuel          | electric    | 0.0             |
+
+these columns have dominatig values:
+fuel(gas 85%)
+title_status(clean 96%)
+transmission(automatic 80%)
+in addition to a low number of missing values
+so i filled the missing values with the mode per each column.
+
+      # filling title_status with mode value
+      df['title_status'] = df['title_status'].fillna('clean')
+      
+      # filling transmission with mode value
+      df['transmission'].fillna(df['transmission'].mode().iloc[0], inplace = True)
+      
+      # filling fuel with mode value
+      df['fuel'].fillna(df['fuel'].mode().iloc[0], inplace = True)
 
 
 high percentage of missing values in :
