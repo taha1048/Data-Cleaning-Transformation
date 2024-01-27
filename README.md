@@ -1,6 +1,75 @@
 # Data-Cleaning-Transformation
 in this project i meant to make this dataset more valid for different usages (ML, data visualization, data analysis,...etc)
 
+### Overview of the Used Cars Dataset
+
+The dataset contains information about used cars from 1900 to 2021, with a total of 426,880 entries and 26 columns.
+
+#### Data Columns and Definitions:
+
+| Column        | Non-Null Count | Dtype  | Description                                      |
+|---------------|----------------|--------|--------------------------------------------------|
+| id            | 426,880        | int64  | Unique identifier for each car listing           |
+| url           | 426,880        | object | URL of the car listing                           |
+| region        | 426,880        | object | Geographic region where the car is located       |
+| region_url    | 426,880        | object | URL of the region                                |
+| price         | 426,880        | int64  | Price of the used car (in currency)              |
+| year          | 425,675        | float64| Year of the car's manufacturing                  |
+| manufacturer  | 409,234        | object | Manufacturer or brand of the car                 |
+| model         | 421,603        | object | Model of the car                                 |
+| condition     | 252,776        | object | Condition of the car (e.g., new, used, like new)|
+| cylinders     | 249,202        | object | Number of cylinders in the car's engine          |
+| fuel          | 423,867        | object | Fuel type (e.g., gas, diesel)                    |
+| odometer      | 422,480        | float64| Odometer reading of the car (in miles)           |
+| title_status  | 418,638        | object | Title status of the car (e.g., clean, salvage)   |
+| transmission  | 424,324        | object | Type of transmission (e.g., automatic, manual)  |
+| VIN           | 265,838        | object | Vehicle Identification Number                   |
+| drive         | 296,313        | object | Drive type (e.g., 4wd, fwd)                       |
+| size          | 120,519        | object | Size of the car (e.g., compact, full-size)       |
+| type          | 334,022        | object | Type of car body (e.g., sedan, SUV)              |
+| paint_color   | 296,677        | object | Exterior paint color                            |
+| image_url     | 426,812        | object | URL of the car's image                           |
+| description   | 426,810        | object | Description of the car listing                   |
+| county        | 0              | float64| No non-null values for the 'county' column      |
+| state         | 426,880        | object | State where the car is located                   |
+| lat           | 420,331        | float64| Latitude of the car's location                   |
+| long          | 420,331        | float64| Longitude of the car's location                  |
+| posting_date  | 426,812        | object | Date and time when the listing was posted        |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Filtering inconsistent data
 
 ## First, Numeric Columns ['price', 'odometer']
@@ -43,34 +112,7 @@ Here is the result:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Second on the list would be Date columns ['year', 'posted_date']
+### Second on the list would be date columns ['year', 'posted_date']
 
 by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500],
 
@@ -104,7 +146,7 @@ it contained some outlier, but i found knid of a relationship between these low 
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
 
-### Next is string or text columns ['manufacturer', 'model', 'region'
+### Next is string or text columns ['manufacturer', 'model', 'region']
 
 
 
