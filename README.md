@@ -56,43 +56,42 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 | long          | 420,331        | float64| Longitude of the car's location                  |
 | posting_date  | 426,812        | object | Date and time when the listing was posted        |
 
+### Dataset Characteristics: Unique Values and Missing Data:
 
+| Column        | Unique Values | Missing Values | Missing Percentage |
+|---------------|---------------|----------------|---------------------|
+| id            | 426,880       | 0              | 0.0%                |
+| url           | 426,880       | 0              | 0.0%                |
+| region        | 404           | 0              | 0.0%                |
+| region_url    | 413           | 0              | 0.0%                |
+| price         | 15,655        | 0              | 0.0%                |
+| year          | 114           | 1,205          | 0.28%               |
+| manufacturer  | 42            | 17,646         | 4.13%               |
+| model         | 29,667        | 5,277          | 1.24%               |
+| condition     | 6             | 174,104        | 40.79%              |
+| cylinders     | 8             | 177,678        | 41.62%              |
+| fuel          | 5             | 3,013          | 0.71%               |
+| odometer      | 104,870       | 4,400          | 1.03%               |
+| title_status  | 6             | 8,242          | 1.93%               |
+| transmission  | 3             | 2,556          | 0.60%               |
+| VIN           | 118,264       | 161,042        | 37.73%              |
+| drive         | 3             | 130,567        | 30.59%              |
+| size          | 4             | 306,361        | 71.77%              |
+| type          | 13            | 92,858         | 21.75%              |
+| paint_color   | 12            | 130,203        | 30.50%              |
+| image_url     | 241,899       | 68             | 0.02%               |
+| description   | 360,911       | 70             | 0.02%               |
+| county        | 0             | 426,880        | 100.0%              |
+| state         | 51            | 0              | 0.0%                |
+| lat           | 53,181        | 6,549          | 1.53%               |
+| long          | 53,772        | 6,549          | 1.53%               |
+| posting_date  | 381,536       | 68             | 0.02%               |
 
+This table provides a comprehensive overview of the dataset, including the number of unique values, missing values, and their respective percentages for each column.
 
+## Filtering out inconsistent data
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Filtering inconsistent data
-
-## First, Numeric Columns ['price', 'odometer']
+### First, numeric columns ['price', 'odometer']
 
 I found high skewness in them (right) due to some outliers.
 
