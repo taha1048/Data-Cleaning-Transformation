@@ -19,41 +19,41 @@ i tried to evaluate these outliers and here is what i've found
 
 1- price ranges >> 
 
-    Zero prices:  32,895 rows
+    - Zero prices:  32,895 rows
     
-    0 < prices < 100 :  3,327 rows
+    - 0 < prices < 100 :  3,327 rows
     
-    100 <= prices < 1000 :  10,093 rows 
+    - 100 <= prices < 1000 :  10,093 rows 
     
-    1000 <= prices <= 10,000 :  129,922 rows
+    - 1000 <= prices <= 10,000 :  129,922 rows
     
-    10000 < prices <= 100,000 :  249,988 rows
+    - 10000 < prices <= 100,000 :  249,988 rows
     
-    prices > 100,000:  655 rows
+    - prices > 100,000:  655 rows
 
 
 2- odometer ranges >>
 
-    odometer <= 10 :  5343
+    - odometer <= 10 :  5343
     
-    odometer <= 100 : 6974
+    - odometer <= 100 : 6974
     
-    odometer <= 1,000 : 10928
+    - odometer <= 1,000 : 10928
     
-    odometer <= 10,000 : 29761
+    - odometer <= 10,000 : 29761
     
-    odometer <= 100,000 : 247141
+    - odometer <= 100,000 : 247141
     
-    odometer <= 1000,000 :  421904
+    - odometer <= 1000,000 :  421904
     
-    odometer <= 10,000,000 : 422480
+    - odometer <= 10,000,000 : 422480
 
 
 so i decided to select these ranges 
 
-    price between(1,000 & 100,000)
+    - price between(1,000 & 100,000)
     
-    odometer less than 1000,000 
+    - odometer less than 1000,000 
 
 making the most sense out of data and also less skewness, here is the result 
 
@@ -98,8 +98,11 @@ here is the 'year' distribution
 it contained some outlier, but i found knid of a relationship between these low years and the 'title_status' so i kept them.
 
 
-
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
+
+## Next is string or text columns
+
+
 
 high percentage of missing values in :
 ['condition', 'cylinders', 'VIN', 'drive', 'type', 'paint_color']
