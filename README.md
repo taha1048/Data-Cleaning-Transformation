@@ -82,7 +82,7 @@ it turned out that all entries were made in 2021, but we have models entered as 
 
 so i dropped the 'posted_date' column as i'm interested in years only, also deleted rows where
 
-the 'year' = 2022, and missing years from the data as it present almost 0 percent on the column.
+the 'year' = 2022, and missing years from the data as it presented almost 0 percent of the column.
 
     # dropping year 2022 and null years
     df = df[df['year'] != 2022]
@@ -95,8 +95,10 @@ here is the 'year' distribution
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4feec60b-4821-46b6-b8e2-5f46e024c5c5)
 
-it contained some skewness, but i 
+it contained some outlier, but i found a relationship between these low years and the 'title_status' so i kept them.
 
+
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4fc3d4d6-d9d6-4b89-8675-0557e346ee13)
 
 
 high percentage of missing values in :
