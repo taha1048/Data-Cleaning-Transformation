@@ -63,7 +63,10 @@ making the most sense out of data and also less skewness, here is the result
 
 ## Second on the list would be Date columns ['year', 'posted_date']
 
-by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500], it turned out that all entries were made in 2021, but we have models entered as 2022 edition. 
+by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500],
+
+it turned out that all entries were made in 2021, but we have models entered as 2022 edition. 
+
             index   year	posting_year
             9738	2022.0	2021.0
             32148	2022.0	2021.0
