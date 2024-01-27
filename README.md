@@ -21,7 +21,6 @@ Welcome to the **Data-Cleaning-Transformation** project! The primary objective o
 4. [Imputing/Removing Missing Values](#imputingremoving-missing-values)
 
 
-
 ### Overview of the Used Cars Dataset
 
 The dataset contains information about used cars from 1900 to 2021, with a total of 426,880 entries and 26 columns.
