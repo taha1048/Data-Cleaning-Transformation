@@ -61,10 +61,9 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 
 ### First dropping unwanted columns
 i deleted useless columns or columns containing high missing values percentage['county', 'size']
-      # useless columns
-      df.drop(['id', 'url', 'region_url', 'county', 'size',
-               'image_url', 'description'],
-               axis = 1, inplace = True)
+
+      df.drop(['id', 'url', 'region_url', 'county', 'size','image_url', 'description'],
+      axis = 1, inplace = True)
 
 
 ### Second, numeric columns ['price', 'odometer']
@@ -107,7 +106,7 @@ Here is the result:
 
 
 
-### Second on the list would be date columns ['year', 'posted_date']
+### Third on the list would be date columns ['year', 'posted_date']
 
 by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500],
 
