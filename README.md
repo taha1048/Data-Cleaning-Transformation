@@ -95,10 +95,10 @@ here is the 'year' distribution
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4feec60b-4821-46b6-b8e2-5f46e024c5c5)
 
-it contained some outlier, but i found a relationship between these low years and the 'title_status' so i kept them.
+it contained some outlier, but i found knid of a relationship between these low years and the 'title_status' so i kept them.
 
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/81fad219-37ba-42e4-88e6-e2f318d78567)
 
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4fc3d4d6-d9d6-4b89-8675-0557e346ee13)
 
 
 high percentage of missing values in :
