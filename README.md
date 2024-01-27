@@ -15,10 +15,11 @@ Welcome to the **Data-Cleaning-Transformation** project! The primary objective o
    - Utilizing machine learning algorithms to impute missing values, ensuring a robust and accurate dataset.
 
 ## Table of Contents:
-1. [Overview of Data](#Overview of the Used Cars Dataset)
+1. [Overview of Data](#overview-of-data)
 2. [Filtering Inconsistent Data](#filtering-inconsistent-data)
 3. [Fixing/Removing Typos](#fixingremoving-typos)
 4. [Imputing/Removing Missing Values](#imputingremoving-missing-values)
+
 
 
 ### Overview of the Used Cars Dataset
