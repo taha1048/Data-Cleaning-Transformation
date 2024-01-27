@@ -80,7 +80,7 @@ it turned out that all entries were made in 2021, but we have models entered as 
     413805	2022.0	2021.0
     423091	2022.0	2021.0
 
-so i dropped the 'posted_date' column as i'm interested in years only, also deleted rows where
+so i dropped the 'posted_date' column as i'm only interested in years, also deleted rows where
 
 the 'year' = 2022, and missing years from the data as it presented almost 0 percent of the column.
 
