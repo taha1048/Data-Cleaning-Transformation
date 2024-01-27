@@ -71,9 +71,9 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 
 
 
-### Second, numeric columns ['price', 'odometer']
+2. **numeric columns ['price', 'odometer']:**
 
-I found high skewness in them (right) due to some outliers.
+I found high skewness in them due to some outliers.
 
 ![Skewness Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/97c4892b-5c16-4278-b34b-bb331a362723)
 
