@@ -41,6 +41,59 @@ Here is the result:
 ![Cleaned Data Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/ba84a941-12e4-49c7-a6a4-e8682f74fa85)
 
 
+Certainly! Let's refine the second section:
+
+### 2. **Consistent Formatting:**
+
+```markdown
+## Second on the List: Date Columns ['year', 'posted_date']
+
+By extracting the posted_year from 'posted_date' [2021-04-26T21:20:19-0500], it turned out that all entries were made in 2021, but we have models entered as the 2022 edition.
+
+```python
+# Displaying entries with 'year' as 2022
+df[df['year'] == 2022].head()
+```
+
+| index | year | posting_year |
+|-------|------|--------------|
+| 9738  | 2022.0 | 2021.0 |
+| 32148 | 2022.0 | 2021.0 |
+| 43183 | 2022.0 | 2021.0 |
+| 65611 | 2022.0 | 2021.0 |
+| 65612 | 2022.0 | 2021.0 |
+
+So, I dropped the 'posted_date' column, as I'm only interested in years. I also deleted rows where the 'year' is 2022 and rows with missing years, as they represented almost 0 percent of the column.
+
+```python
+# Dropping 'year' 2022 and null years
+df = df[df['year'] != 2022]
+# Dropping null years
+df.dropna(subset='year', inplace=True)
+# Dropping 'posted_date'
+df.drop('posted_date', axis=1, inplace=True)
+```
+
+The 'year' distribution contained some outliers, but I found a kind of relationship between these low years and the 'title_status' so I kept them.
+
+```python
+# Displaying 'year' distribution
+df['year'].value_counts().sort_index()
+```
+
+![Year Distribution Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4feec60b-4821-46b6-b8e2-5f46e024c5c5)
+
+It contained some outliers, but I found a kind of relationship between these low years and the 'title_status,' so I kept them.
+
+```python
+# Displaying relationship between low 'year' and 'title_status'
+df[df['year'] < 1990]['title_status'].value_counts()
+```
+
+![Title Status vs. Low Year Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
+```
+
+Feel free to adjust the text as needed. Ensure that the code snippets are formatted correctly, and the images' URLs are correct.
 
 
 
@@ -66,64 +119,8 @@ Here is the result:
 
 
 
-### first, numeric columns ['price' , 'odometer']:
-
-i found high skewness in them (right) due to some outliers
-
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/97c4892b-5c16-4278-b34b-bb331a362723)
 
 
-with an overall shape like this :
-
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/b44149cb-ecdd-4270-a608-3661cfb23231)
-
-
-
-
-i tried to evaluate these outliers and here is what i've found
-
-1- price ranges >> 
-
-    - Zero prices:  32,895 rows
-    
-    - 0 < prices < 100 :  3,327 rows
-    
-    - 100 <= prices < 1000 :  10,093 rows 
-    
-    - 1000 <= prices <= 10,000 :  129,922 rows
-    
-    - 10000 < prices <= 100,000 :  249,988 rows
-    
-    - prices > 100,000:  655 rows
-
-
-2- odometer ranges >>
-
-    - odometer <= 10 :  5343
-    
-    - odometer <= 100 : 6974
-    
-    - odometer <= 1,000 : 10928
-    
-    - odometer <= 10,000 : 29761
-    
-    - odometer <= 100,000 : 247141
-    
-    - odometer <= 1000,000 :  421904
-    
-    - odometer <= 10,000,000 : 422480
-
-
-so i decided to select these ranges 
-
-    - price between(1,000 & 100,000)
-    
-    - odometer less than 1000,000 
-
-making the most sense out of data and also less skewness, here is the result 
-
-
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/ba84a941-12e4-49c7-a6a4-e8682f74fa85)
 
 
 ### Second on the list would be Date columns ['year', 'posted_date']
