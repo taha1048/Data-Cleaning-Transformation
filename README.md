@@ -59,11 +59,14 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 
 ## Filtering out inconsistent data
 
-### First dropping unwanted columns
-i deleted useless columns or columns containing high missing values percentage['county', 'size']
-
+### First dropping unwanted columns/rows
+      # useless columns or columns containing high missing values percentage['county', 'size']
       df.drop(['id', 'url', 'region_url', 'county', 'size','image_url', 'description'],
       axis = 1, inplace = True)
+
+      # dropped rows where the 'manufacturer' and the 'model' are missing
+      df.dropna(subset = ['manufacturer', 'model'], how = 'all', inplace = True)
+
 
 
 ### Second, numeric columns ['price', 'odometer']
@@ -135,7 +138,7 @@ here is the 'year' distribution
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4feec60b-4821-46b6-b8e2-5f46e024c5c5)
 
-it contained some outlier, but i found knid of a relationship between these low years and the 'title_status' so i kept them.
+it contained some outlier, but i found knid of a relationship between these earlier years and the 'title_status' so i kept them.
 
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
