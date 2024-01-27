@@ -41,59 +41,6 @@ Here is the result:
 ![Cleaned Data Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/ba84a941-12e4-49c7-a6a4-e8682f74fa85)
 
 
-Certainly! Let's refine the second section:
-
-### 2. **Consistent Formatting:**
-
-```markdown
-## Second on the List: Date Columns ['year', 'posted_date']
-
-By extracting the posted_year from 'posted_date' [2021-04-26T21:20:19-0500], it turned out that all entries were made in 2021, but we have models entered as the 2022 edition.
-
-```python
-# Displaying entries with 'year' as 2022
-df[df['year'] == 2022].head()
-```
-
-| index | year | posting_year |
-|-------|------|--------------|
-| 9738  | 2022.0 | 2021.0 |
-| 32148 | 2022.0 | 2021.0 |
-| 43183 | 2022.0 | 2021.0 |
-| 65611 | 2022.0 | 2021.0 |
-| 65612 | 2022.0 | 2021.0 |
-
-So, I dropped the 'posted_date' column, as I'm only interested in years. I also deleted rows where the 'year' is 2022 and rows with missing years, as they represented almost 0 percent of the column.
-
-```python
-# Dropping 'year' 2022 and null years
-df = df[df['year'] != 2022]
-# Dropping null years
-df.dropna(subset='year', inplace=True)
-# Dropping 'posted_date'
-df.drop('posted_date', axis=1, inplace=True)
-```
-
-The 'year' distribution contained some outliers, but I found a kind of relationship between these low years and the 'title_status' so I kept them.
-
-```python
-# Displaying 'year' distribution
-df['year'].value_counts().sort_index()
-```
-
-![Year Distribution Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4feec60b-4821-46b6-b8e2-5f46e024c5c5)
-
-It contained some outliers, but I found a kind of relationship between these low years and the 'title_status,' so I kept them.
-
-```python
-# Displaying relationship between low 'year' and 'title_status'
-df[df['year'] < 1990]['title_status'].value_counts()
-```
-
-![Title Status vs. Low Year Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
-```
-
-Feel free to adjust the text as needed. Ensure that the code snippets are formatted correctly, and the images' URLs are correct.
 
 
 
@@ -129,18 +76,13 @@ by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500],
 
 it turned out that all entries were made in 2021, but we have models entered as 2022 edition. 
 
-    index   year	posting_year
-    9738	2022.0	2021.0
-    32148	2022.0	2021.0
-    43183	2022.0	2021.0
-    65611	2022.0	2021.0
-    65612	2022.0	2021.0
-    ...	        ...	    ...
-    410935	2022.0	2021.0
-    410936	2022.0	2021.0
-    412094	2022.0	2021.0
-    413805	2022.0	2021.0
-    423091	2022.0	2021.0
+| index | year | posting_year |
+|-------|------|--------------|
+| 9738  | 2022.0 | 2021.0 |
+| 32148 | 2022.0 | 2021.0 |
+| 43183 | 2022.0 | 2021.0 |
+| 65611 | 2022.0 | 2021.0 |
+| 65612 | 2022.0 | 2021.0 |
 
 so i dropped the 'posted_date' column as i'm only interested in years, also deleted rows where
 
