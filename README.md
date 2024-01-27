@@ -67,18 +67,35 @@ by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500],
 
 it turned out that all entries were made in 2021, but we have models entered as 2022 edition. 
 
-            index   year	posting_year
-            9738	2022.0	2021.0
-            32148	2022.0	2021.0
-            43183	2022.0	2021.0
-            65611	2022.0	2021.0
-            65612	2022.0	2021.0
-            ...	...	...
-            410935	2022.0	2021.0
-            410936	2022.0	2021.0
-            412094	2022.0	2021.0
-            413805	2022.0	2021.0
-            423091	2022.0	2021.0
+    index   year	posting_year
+    9738	2022.0	2021.0
+    32148	2022.0	2021.0
+    43183	2022.0	2021.0
+    65611	2022.0	2021.0
+    65612	2022.0	2021.0
+    ...	        ...	    ...
+    410935	2022.0	2021.0
+    410936	2022.0	2021.0
+    412094	2022.0	2021.0
+    413805	2022.0	2021.0
+    423091	2022.0	2021.0
+
+so i dropped the 'posted_date' column as i'm interested in years only, also deleted rows where
+
+the 'year' = 2022, and missing years from the data as it present almost 0 percent on the column.
+
+    # dropping year 2022 and null years
+    df = df[df['year'] != 2022]
+    # dropping null years
+    df.dropna(subset = 'year', inplace = True)
+    # dropping 'posted_date'
+    df.drop('posted_date', axis = 1, inplace = True)
+
+here is the 'year' distribution 
+
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4feec60b-4821-46b6-b8e2-5f46e024c5c5)
+
+it contained some skewness, but i 
 
 
 
