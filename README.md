@@ -59,15 +59,15 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 
 ## Filtering out inconsistent data
 
-1- **dropping unwanted columns/rows:**
-1- useless columns or columns containing high missing values percentage['county', 'size']
-
-      df.drop(['id', 'url', 'region_url', 'county', 'size','image_url', 'description'],
-      axis = 1, inplace = True)
-
-2- rows where the 'manufacturer' and the 'model' are missing as they provide no value
-
-      df.dropna(subset = ['manufacturer', 'model'], how = 'all', inplace = True)
+1. **dropping unwanted columns/rows:**
+   - useless columns or columns containing high missing values percentage['county', 'size']
+   
+         df.drop(['id', 'url', 'region_url', 'county', 'size','image_url', 'description'],
+         axis = 1, inplace = True)
+   
+   - rows where the 'manufacturer' and the 'model' are missing as they provide no value
+   
+         df.dropna(subset = ['manufacturer', 'model'], how = 'all', inplace = True)
 
 
 
