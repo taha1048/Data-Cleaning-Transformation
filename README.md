@@ -1,7 +1,72 @@
 # Data-Cleaning-Transformation
-I started by exploring data types and missing values in the dataset
+in this project i meant to make this dataset more valid for different usages (ML, data visualization, data analysis,...etc)
 
-## first, numeric columns ['price' , 'odometer']:
+## Filtering inconsistent data
+
+## First, Numeric Columns ['price', 'odometer']
+
+I found high skewness in them (right) due to some outliers.
+
+![Skewness Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/97c4892b-5c16-4278-b34b-bb331a362723)
+
+With an overall shape like this:
+
+![Overall Shape Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/b44149cb-ecdd-4270-a608-3661cfb23231)
+
+I tried to evaluate these outliers, and here is what I've found:
+
+1. **Price Ranges:**
+   - Zero Prices: 32,895 rows
+   - 0 < Prices < 100: 3,327 rows
+   - 100 <= Prices < 1000: 10,093 rows
+   - 1000 <= Prices <= 10,000: 129,922 rows
+   - 10,000 < Prices <= 100,000: 249,988 rows
+   - Prices > 100,000: 655 rows
+
+2. **Odometer Ranges:**
+   - Odometer <= 10: 5,343 rows
+   - Odometer <= 100: 6,974 rows
+   - Odometer <= 1,000: 10,928 rows
+   - Odometer <= 10,000: 29,761 rows
+   - Odometer <= 100,000: 247,141 rows
+   - Odometer <= 1,000,000: 421,904 rows
+   - Odometer <= 10,000,000: 422,480 rows
+
+I decided to select these ranges for better data interpretation and less skewness:
+- Price between (1,000 & 100,000)
+- Odometer less than 1,000,000
+
+Here is the result:
+
+![Cleaned Data Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/ba84a941-12e4-49c7-a6a4-e8682f74fa85)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### first, numeric columns ['price' , 'odometer']:
 
 i found high skewness in them (right) due to some outliers
 
@@ -61,7 +126,7 @@ making the most sense out of data and also less skewness, here is the result
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/ba84a941-12e4-49c7-a6a4-e8682f74fa85)
 
 
-## Second on the list would be Date columns ['year', 'posted_date']
+### Second on the list would be Date columns ['year', 'posted_date']
 
 by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500],
 
@@ -100,7 +165,7 @@ it contained some outlier, but i found knid of a relationship between these low 
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
 
-## Next is string or text columns
+### Next is string or text columns ['manufacturer', 'model', 'region'
 
 
 
