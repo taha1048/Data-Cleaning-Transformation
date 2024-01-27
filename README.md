@@ -59,7 +59,7 @@ The dataset contains information about used cars from 1900 to 2021, with a total
 
 ## Filtering out inconsistent data
 
-**###First, dropping unwanted columns/rows:**
+### **First, dropping unwanted columns/rows:**
    - useless columns or columns containing high missing values percentage['county', 'size']
    
          df.drop(['id', 'url', 'region_url', 'county', 'size','image_url', 'description'],
