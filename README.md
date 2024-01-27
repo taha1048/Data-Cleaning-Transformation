@@ -43,39 +43,6 @@ Certainly! Here's a table with column names, definitions, and data types:
 | posting_date  | Date when the listing was posted         | object    |
 
 
-
-
-| Column        | Definition                                        | Unique Values | Missing Values | Missing Percentage |
-|---------------|---------------------------------------------------|---------------|----------------|---------------------|
-| id            | Unique identifier for each car listing             | 426,880       | 0              | 0.0%                |
-| url           | URL of the car listing                             | 426,880       | 0              | 0.0%                |
-| region        | Geographic region where the car is located        | 404           | 0              | 0.0%                |
-| region_url    | URL of the region                                  | 413           | 0              | 0.0%                |
-| price         | Price of the used car (in currency)                | 15,655        | 0              | 0.0%                |
-| year          | Year of the car's manufacturing                   | 114           | 1,205          | 0.28%               |
-| manufacturer  | Manufacturer or brand of the car                  | 42            | 17,646         | 4.13%               |
-| model         | Model of the car                                  | 29,667        | 5,277          | 1.24%               |
-| condition     | Condition of the car (e.g., new, used, like new)  | 6             | 174,104        | 40.79%              |
-| cylinders     | Number of cylinders in the car's engine           | 8             | 177,678        | 41.62%              |
-| fuel          | Fuel type (e.g., gas, diesel)                     | 5             | 3,013          | 0.71%               |
-| odometer      | Odometer reading of the car (in miles)            | 104,870       | 4,400          | 1.03%               |
-| title_status  | Title status of the car (e.g., clean, salvage)    | 6             | 8,242          | 1.93%               |
-| transmission  | Type of transmission (e.g., automatic, manual)   | 3             | 2,556          | 0.60%               |
-| VIN           | Vehicle Identification Number                    | 118,264       | 161,042        | 37.73%              |
-| drive         | Drive type (e.g., 4wd, fwd)                        | 3             | 130,567        | 30.59%              |
-| size          | Size of the car (e.g., compact, full-size)        | 4             | 306,361        | 71.77%              |
-| type          | Type of car body (e.g., sedan, SUV)               | 13            | 92,858         | 21.75%              |
-| paint_color   | Exterior paint color                             | 12            | 130,203        | 30.50%              |
-| image_url     | URL of the car's image                            | 241,899       | 68             | 0.02%               |
-| description   | Description of the car listing                    | 360,911       | 70             | 0.02%               |
-| county        | No non-null values for the 'county' column        | 0             | 426,880        | 100.0%              |
-| state         | State where the car is located                    | 51            | 0              | 0.0%                |
-| lat           | Latitude of the car's location                    | 53,181        | 6,549          | 1.53%               |
-| long          | Longitude of the car's location                   | 53,772        | 6,549          | 1.53%               |
-| posting_date  | Date and time when the listing was posted         | 381,536       | 68             | 0.02%               |
-
-
-
 ## **1- Dropping unwanted columns:**
    - useless columns or columns containing high missing values percentage['county', 'size']
    
@@ -187,7 +154,7 @@ it contained some outlier, but i found knid of a relationship between these earl
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
 
 
-### Manufacturer & Model
+### 4- Manufacturer & Model
 
 
 | Column        | Unique Values | Missing Values | Missing Percentage |
@@ -206,7 +173,7 @@ then filled the remaining missing value with a new category 'unknown'
       df['manufacturer'] = df['manufacturer'].fillna('unknown')
       df['model'] = df['model'].fillna('unknown')
 we also got some typos in the 'model' column so i used some regular expressions to find and fill them
-with 'unknown' if thr row contains a 'manufacurer' and drop them if not.
+with 'unknown' if the row contains a 'manufacurer' and drop them if not.
       
       # creating a mask for the condition
       mask = ((df['model'].str.contains('^[\W\d]+$') == True) & (df['manufacturer'] == 'unknown'))
@@ -224,23 +191,72 @@ with 'unknown' if thr row contains a 'manufacurer' and drop them if not.
       df = df[df['model'].str.contains('[♿🔥]') == False]
       df = df[df['model'].str.contains('^[,-./]') == False]
 
-# Handling missing values
 
-### 1- Categorical columns with dominating values
+### 5- Categorical columns with dominating values
+
+
+| Column       | Unique Values | Missing Values | Missing Percentage |
+|--------------|---------------|----------------|---------------------|
+| Transmission | 3             | 2556           | 0.60%               |
+| Title Status | 6             | 8242           | 1.93%               |
+| Fuel         | 5             | 3013           | 0.71%               |
+
+these column have low null percentage and dominating values as the following: 
 
 | Column        | Value       | Proportion (%) |
 |---------------|-------------|-----------------|
 | transmission  | automatic   | 79.0            |
-| transmission  | other       | 15.0            |
-| transmission  | manual      | 6.0             |
 | title_status  | clean       | 97.0            |
-| title_status  | rebuilt     | 2.0             |
-| title_status  | salvage     | 1.0             |
 | fuel          | gas         | 84.0            |
-| fuel          | other       | 7.0             |
-| fuel          | diesel      | 7.0             |
-| fuel          | hybrid      | 1.0             |
-| fuel          | electric    | 0.0             |
+
+there will be no bias by filling them with the mode value
+
+      # filling title_status with mode value
+      df['title_status'] = df['title_status'].fillna('clean')
+      
+      # filling transmission with mode value
+      df['transmission'].fillna(df['transmission'].mode().iloc[0], inplace = True)
+      
+      # filling fuel with mode value
+      df['fuel'].fillna(df['fuel'].mode().iloc[0], inplace = True)
+
+### Categorical columns related to the 'model'
+
+| Column    | Unique Values | Missing Values | Missing Percentage |
+|-----------|---------------|----------------|---------------------|
+| Type      | 13            | 92858          | 21.75%              |
+| Cylinders | 8             | 177678         | 41.62%              |
+| Drive     | 3             | 130567         | 30.59%              |
+
+these columns have high null percentage and with no significant dominating values
+and sense the dataset contains 426,880 row and 29667 model, i populated these missing values with mode 
+value per each model.
+
+      # empty lists to save the result
+       typ = []
+      model_type = []
+      models_null_type = []
+      
+      for model in models:
+          # type mode value
+          mode_value = df[df['model'] == model]['type'].mode()
+          
+          if not mode_value.empty:
+              
+              # assining values to the lists
+              model_type.append(model)
+              typ.append(mode_value.iloc[0])
+          else:
+              # models with no mode value
+              models_null_type.append(model)
+              
+      # displaying the length of each list        
+      print(len(model_type), len(typ), len(models_null_type)) 
+
+
+
+
+
 
 these columns have dominatig values:
 fuel(gas 85%)
