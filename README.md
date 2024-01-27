@@ -1,5 +1,25 @@
 # Data-Cleaning-Transformation
-in this project i meant to make this dataset more valid for different usages (ML, data visualization, data analysis,...etc)
+
+Welcome to the **Data-Cleaning-Transformation** project! The primary objective of this project is to enhance the validity of the dataset, making it more suitable for various applications such as machine learning, data visualization, and data analysis. The project is organized into three distinct phases:
+
+1. **Exploratory Data Analysis (EDA):**
+   - In-depth exploration of the dataset to gain a comprehensive understanding of its characteristics.
+   - Identification of patterns, trends, and potential outliers.
+
+2. **Data Cleaning Process:**
+   - Filtering out inconsistent data to ensure data integrity.
+   - Correcting or removing typographical errors that might affect the dataset's reliability.
+   - Imputing or removing missing values to enhance the completeness of the dataset.
+
+3. **Machine Learning Algorithm for Imputation:**
+   - Utilizing machine learning algorithms to impute missing values, ensuring a robust and accurate dataset.
+
+## Table of Contents:
+1. [Overview of Data](#Overview of the Used Cars Dataset)
+2. [Filtering Inconsistent Data](#filtering-inconsistent-data)
+3. [Fixing/Removing Typos](#fixingremoving-typos)
+4. [Imputing/Removing Missing Values](#imputingremoving-missing-values)
+
 
 ### Overview of the Used Cars Dataset
 
