@@ -149,29 +149,30 @@ like this :
 | 65611 | 2022.0 | 2021.0 |
 | 65612 | 2022.0 | 2021.0 |
 
-so i dropped the 'posted_date' column as i'm only interested in years, rows where
-
-the 'year' = 2022, and missing years from the data as it presented almost 0 percent of the column (0.28%).
-
-    # dropping year 2022 and null years
-    df = df[df['year'] != 2022]
-    # dropping null years
-    df.dropna(subset = 'year', inplace = True)
-    # dropping 'posted_date'
-    df.drop('posted_date', axis = 1, inplace = True)
+so i dropped:
+- the 'posted_date' column as i'm only interested in years
+- rows where the 'year' = 2022
+- missing years from the data as it represented almost 0 percent of the column (0.28%).
+  
+       # dropping year 2022 and null years
+       df = df[df['year'] != 2022]
+       # dropping null years
+       df.dropna(subset = 'year', inplace = True)
+       # dropping 'posted_date'
+       df.drop('posted_date', axis = 1, inplace = True)
 
 here is the 'year' distribution 
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/e39e51e7-88b8-485b-bb36-2dfdab840442)
 
 
-it contained some outlier (from 1900 to 2000), but that's because of some old cars with (parts only & missing) status.
+it contained some outlier (from 1900 to 1990), but these earlier years affect some old cars with (parts only & missing) status.
 
 
 
 ![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/815595b6-b090-4a35-a415-76e9f1b8cd5f)
 
-these outliers represent 6% of the whole dataset so i kept them.
+also these outliers represent 6% of the whole dataset so i kept them.
 
 ---
 
