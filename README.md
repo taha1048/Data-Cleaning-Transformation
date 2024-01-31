@@ -2,13 +2,25 @@
 
 
 
+## This project aims to enhance the validity and usability of a used cars dataset, preparing it for various applications such as machine learning, data visualization, and analysis.
+
+**The project is organized into three main phases (with provided notebooks):**
+1. Exploratory data analysis (EDA). 
+2. Data cleaning. 
+3. Application of machine learning algorithms for imputing some missing values.
+
+**The detailed cleaning process involves:**
+1. Handling outliers in numeric columns
+2. Removing/Filling missing values with different techniques
+3. Fixing typos and incosistent entries
+4. Deleting useless rows & columns
+
+## First let's have a closer look at the data and we will check each column individually later.
 
 
-### Overview of the Dataset
+**Overview of the Dataset :**
 
-The dataset contains information about used cars from 1900 to 2021, with a total of 426,880 entries and 26 columns.
-
-**"Dataset Characteristics: Unique Values, Missing Data, and Definitions"**
+The dataset contains information about used cars from 1900 to 2021, with a total of 426,880 entries (rows) and 26 columns.
 
 Here's a table with column names, definitions, and data types:
 
@@ -42,6 +54,8 @@ Here's a table with column names, definitions, and data types:
 | long          | Longitude of the car's location           | float64   |
 | posting_date  | Date when the listing was posted         | object    |
 
+## Data cleaning process
+
 
 ## **1- Dropping unwanted columns:**
    - useless columns or columns containing high missing values percentage['county', 'size']
@@ -50,82 +64,84 @@ Here's a table with column names, definitions, and data types:
          axis = 1, inplace = True)
 
 
-## 2- Numeric columns ['price', 'odometer', 'lat', 'long']:
+## 2- Price & Odometer
+These columns are kinda related, as the higher the odometer is, the lower the price should be.
 
-| Column        | Unique Values | Missing Values | Missing Percentage |
+here's some details about them.
+
+| Column        | Number Of Unique Values | Number Of Missing Values | Missing Values Percentage |
 |---------------|---------------|----------------|---------------------|
 | price         | 15,655        | 0              | 0.0%                |
 | odometer      | 104,870       | 4,400          | 1.03%               |
-| lat           | 53,181        | 6,549          | 1.53%               |
-| long          | 53,772        | 6,549          | 1.53%               |
 
 
-I found high skewness in the ['price', 'odometer'] due to some outliers.
 
-![Skewness Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/97c4892b-5c16-4278-b34b-bb331a362723)
+
+
+
+I found high skewness in them due to some outliers.
+
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/b4cf9c36-d155-4e11-9c96-0bf72477bc7c)
+
+
+
 
 With an overall shape like this:
 
-![Overall Shape Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/b44149cb-ecdd-4270-a608-3661cfb23231)
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/0b867985-5737-46fd-9ec8-8b4d1a4db6d4)
 
-I tried to evaluate these outliers, and here is what I've found:
+
+I categorized the values in each column, and here is what I've got:
 
 1. **Price Ranges:**
-   - Zero Prices: 32,895 rows
-   - 0 < Prices < 100: 3,327 rows
-   - 100 <= Prices < 1000: 10,093 rows
-   - 1000 <= Prices <= 10,000: 129,922 rows
-   - 10,000 < Prices <= 100,000: 249,988 rows
-   - Prices > 100,000: 655 rows
+   - Zero Prices : 32,895 rows
+   - 0 < Prices < 100 : 3,327 rows
+   - 100 <= Prices < 1000 : 10,093 rows
+   - 1000 <= Prices <= 10,000 : 129,922 rows
+   - 10,000 < Prices <= 100,000 : 249,988 rows
+   - Prices > 100,000 : 655 rows
 
 2. **Odometer Ranges:**
-   - Odometer <= 10: 5,343 rows
-   - Odometer <= 100: 6,974 rows
-   - Odometer <= 1,000: 10,928 rows
-   - Odometer <= 10,000: 29,761 rows
-   - Odometer <= 100,000: 247,141 rows
-   - Odometer <= 1,000,000: 421,904 rows
-   - Odometer <= 10,000,000: 422,480 rows
+   - Odometer <= 10 : 5,343 rows
+   - Odometer <= 100 : 6,974 rows
+   - Odometer <= 1,000 : 10,928 rows
+   - Odometer <= 10,000 : 29,761 rows
+   - Odometer <= 100,000 : 247,141 rows
+   - Odometer <= 1,000,000 : 421,904 rows
+   - Odometer <= 10,000,000 : 422,480 rows
 
-I decided to select these ranges for better data interpretation and less skewness:
+I opted for these ranges for better data interpretation and less skewness:
 - Price between (1,000 & 100,000)
 - Odometer less than 1,000,000
 
 Here is the result:
 
-![Cleaned Data Plot](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/ba84a941-12e4-49c7-a6a4-e8682f74fa85)
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/b845fdbd-5db2-4b62-97b2-dfa1f74470c6)
 
 
-after that i filled the missing values in the 'odometer' with the median.
+after that i filled the missing values in the 'odometer' with the median value as it contained small percentage of missing values (1.03%).
 
       # filling odometer with the median value
       df['odometer'] = df['odometer'].fillna(df['odometer'].median())
       
-and for 'lat' & 'long', i populated the nulls with median value per each region
 
-      # populating lat & long with the median value per each 'region'
-      regions = df['region'].unique()
-      
-      # Fill missing lat and long based on median values for each region
-      for region in regions:
-          median_lat = df[df['region'] == region]['lat'].median()
-          median_long = df[df['region'] == region]['long'].median()
-          df.loc[(df['region'] == region) & (df['lat'].isnull()), 'lat'] = median_lat
-          df.loc[(df['region'] == region) & (df['long'].isnull()), 'long'] = median_long
+--- 
 
 ### 3- Date columns ['year', 'posted_date']
 
-| Column        | Unique Values | Missing Values | Missing Percentage |
+| Column        | Number Of Unique Values | Number Of Missing Values | Missing Values Percentage |
 |---------------|---------------|----------------|---------------------|
 | year          | 114           | 1205           | 0.28%               |
 | posting_date  | 381536        | 68             | 0.02%               |
 
 
-by extracting the posted_year from 'posted_date'[ 2021-04-26T21:20:19-0500],
+By extracting the year from the 'posted_date' [ 2021-04-26T21:20:19-0500],
 
-it turned out that all entries were made in 2021, but we have models entered as 2022 edition. 
+it turned out that all entries were made in (2021), but we have models entered as (2022 edition). 
 
-| index | year | posting_year |
+like this :
+
+| row number | year | posting_year |
 |-------|------|--------------|
 | 9738  | 2022.0 | 2021.0 |
 | 32148 | 2022.0 | 2021.0 |
@@ -133,9 +149,9 @@ it turned out that all entries were made in 2021, but we have models entered as 
 | 65611 | 2022.0 | 2021.0 |
 | 65612 | 2022.0 | 2021.0 |
 
-so i dropped the 'posted_date' column as i'm only interested in years, also deleted rows where
+so i dropped the 'posted_date' column as i'm only interested in years, rows where
 
-the 'year' = 2022, and missing years from the data as it presented almost 0 percent of the column.
+the 'year' = 2022, and missing years from the data as it presented almost 0 percent of the column (0.28%).
 
     # dropping year 2022 and null years
     df = df[df['year'] != 2022]
@@ -146,12 +162,20 @@ the 'year' = 2022, and missing years from the data as it presented almost 0 perc
 
 here is the 'year' distribution 
 
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/4feec60b-4821-46b6-b8e2-5f46e024c5c5)
-
-it contained some outlier, but i found knid of a relationship between these earlier years and the 'title_status' so i kept them.
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/e39e51e7-88b8-485b-bb36-2dfdab840442)
 
 
-![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/73c9cd32-8363-4f4b-bb7a-c0d3b2de0796)
+it contained some outlier (from 1900 to 2000), but that's because of some old cars with (parts only & missing) status.
+
+
+
+![download](https://github.com/taha1048/Data-Cleaning-Transformation/assets/139405748/815595b6-b090-4a35-a415-76e9f1b8cd5f)
+
+these outliers represent 6% of the whole dataset so i kept them.
+
+---
+
+
 
 
 ### 4- Manufacturer & Model
