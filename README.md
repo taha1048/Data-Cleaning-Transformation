@@ -4,16 +4,16 @@
 
 
 
-### Overview of the Used Cars Dataset
+### Overview of the Dataset
 
 The dataset contains information about used cars from 1900 to 2021, with a total of 426,880 entries and 26 columns.
 
 **"Dataset Characteristics: Unique Values, Missing Data, and Definitions"**
-Certainly! Here's a table with column names, definitions, and data types:
 
-**Overview of the Used Cars Dataset**
+Here's a table with column names, definitions, and data types:
 
-| Column        | Definition                                | Dtype     |
+
+| Column name       | Definition                                | Data type     |
 |---------------|-------------------------------------------|-----------|
 | id            | Unique identifier for each listing        | int64     |
 | url           | URL of the listing                       | object    |
