@@ -57,14 +57,14 @@ Here's a table with column names, definitions, and data types:
 ## Data cleaning process
 
 
-## **1- Dropping unwanted columns:**
-   - useless columns or columns containing high missing values percentage['county', 'size']
+### **1- Dropping unwanted columns:**
+   - useless columns or columns containing high missing values percentage 'county' (100%)
    
-         df.drop(['id', 'url', 'region_url', 'county', 'size','image_url', 'description'],
+         df.drop(['id', 'url', 'region_url', 'county', 'image_url', 'description'],
          axis = 1, inplace = True)
 
 
-## 2- Price & Odometer
+### 2- Price & Odometer
 These columns are kinda related, as the higher the odometer is, the lower the price should be.
 
 here's some details about them.
@@ -188,7 +188,7 @@ also these outliers represent 6% of the whole dataset so i kept them.
 
 These ones are crucial for the dataset as many features depend on them, but the problem is all the missing values in the 'manufacturer' aren't totally random.
 
-There are specific 'models' doesn't have any manufacturer at all, so
+There are specific 'models' don't have any manufacturer at all, so
 1. i deleted rows where they both are missing
 
          # droping cars with no manufacturer and model
@@ -202,7 +202,7 @@ There are specific 'models' doesn't have any manufacturer at all, so
    
          df.dropna(subset = 'model', inplace = True)
 
-we also got some typos in the 'model' column so i used some regular expressions to find and drop them
+we also got some typos in the 'model' column so i used some regular expressions to filter them out.
       
       # dropping strange inputs
       df = df[df['model'].str.contains('[♿🔥]') == False]
@@ -222,7 +222,7 @@ we also got some typos in the 'model' column so i used some regular expressions 
 
 these columns have common characteristics :
 1. low missing values percentage 
-2. dominating values as the following:
+2. dominating values, as the following:
    - 79% of 'transmission' is 'automatic'
    - 97% of 'title_status' is 'clean'
    - 84% of 'fuel' is 'gas'
@@ -241,7 +241,7 @@ so, there won't be any bias by filling them with the mode value
 
 ---
 
-### Type, Cylinders, Drive, Size
+### 6- Type, Cylinders, Drive, Size
 
 | Column     | Number Of Unique Values | Number Of Missing Values | Missing Values Percentage |
 |------------|-------------------------|--------------------------|---------------------------|
@@ -338,10 +338,78 @@ Values in the 'Cylinders' column
 | 3 cylinders             | 0.0                                | 0.0                  | 1.0                  |
 | 12 cylinders            | 0.0                                | 0.0                  | 0.0                  |
 
+---
 
 
+### 7- VIN & paint_color
+1. The VIN (Vehicle Identification Number) itself isn't important, but the it's existence, so i converted it to a binary column
+   1. 1 for existing
+   2. 0 for missing
+```
+# convert VIN to binary
 
+# replacing exsisting VINs with 1
+df.loc[df['VIN'].notnull(), 'VIN'] = 1
 
+# filling nulls with 0
+df['VIN'].fillna(0, inplace = True)
+
+```
+2. and for the paint_color, i filled it's missing values with 'custom', as it's not a significant feature.
+
+  ```
+   df['paint_color'] = df['paint_color'].fillna('custom')
+
+   ```
+---
+
+### 8- Lat & Long
+
+| Column | Number Of Unique Values | Number Of Missing Values | Missing Values Percentage |
+|--------|-------------------------|--------------------------|---------------------------|
+| Lat    | 53,181                  | 6,549                    | 1.53%                     |
+| Long   | 53,772                  | 6,549                    | 1.53%                     |
+
+we only have some missing values here so i populated them with median value based the the region column
+      
+      # populating lat & long with the median value per each 'region'
+      regions = df['region'].unique()
+      
+      # Fill missing lat and long based on median values for each region
+      for region in regions:
+          median_lat = df[df['region'] == region]['lat'].median()
+          median_long = df[df['region'] == region]['long'].median()
+          df.loc[(df['region'] == region) & (df['lat'].isnull()), 'lat'] = median_lat
+          df.loc[(df['region'] == region) & (df['long'].isnull()), 'long'] = median_long
+
+---
+
+## Now with the pre-final results 
+the new shape of the dataset is 
+- 359,724 rows (almost 85% of the original shape)
+- 19 columns
+
+| Column        | Percentage of Missing Values |
+|---------------|-------------------------------|
+| region        | 0.0%                          |
+| price         | 0.0%                          |
+| year          | 0.0%                          |
+| manufacturer  | 0.0%                          |
+| model         | 0.0%                          |
+| condition     | 36.7%                         |
+| cylinders     | 0.0%                          |
+| fuel          | 0.0%                          |
+| odometer      | 0.0%                          |
+| title_status  | 0.0%                          |
+| transmission  | 0.0%                          |
+| VIN           | 0.0%                          |
+| drive         | 0.0%                          |
+| size          | 0.0%                          |
+| type          | 0.0%                          |
+| paint_color   | 0.0%                          |
+| state         | 0.0%                          |
+| lat           | 0.0%                          |
+| long          | 0.0%                          |
 
 
 
