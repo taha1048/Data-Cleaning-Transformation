@@ -212,7 +212,7 @@ we also got some typos in the 'model' column so i used some regular expressions 
 
 ---
 
-### 5- Title Status, Transmission, and Feul
+### 5- Title Status, Transmission, and Fuel
 
 | Column        | Number Of Unique Values | Number Of Missing Values | Missing Values Percentage |
 |--------------|---------------|----------------|---------------------|
