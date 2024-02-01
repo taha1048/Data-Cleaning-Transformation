@@ -2,7 +2,7 @@
 
 
 
-## This project aims to enhance the validity and usability of a used cars dataset, preparing it for various applications such as machine learning, data visualization, and analysis.
+## This project aims to enhance the validity and usability of the dataset, preparing it for various applications such as machine learning, data visualization, and analysis.
 
 **The project is organized into three main phases (with provided notebooks):**
 1. Exploratory data analysis (EDA). 
@@ -181,60 +181,54 @@ also these outliers represent 6% of the whole dataset so i kept them.
 
 ### 4- Manufacturer & Model
 
-
-| Column        | Unique Values | Missing Values | Missing Percentage |
+| Column        | Number Of Unique Values | Number Of Missing Values | Missing Values Percentage |
 |---------------|---------------|----------------|---------------------|
 | manufacturer  | 42            | 17646          | 4.13%               |
 | model         | 29667         | 5277           | 1.24%               |
 
-i deleted rows where they both are missing
+These ones are crucial for the dataset as many features depend on them, but the problem is all the missing values in the 'manufacturer' aren't totally random.
 
-      # droping cars with no manufacturer and model
-      df.dropna(subset = ['manufacturer', 'model'], how = 'all', inplace = True)
+There are specific 'models' doesn't have any manufacturer at all, so
+1. i deleted rows where they both are missing
 
-then filled the remaining missing value with a new category 'unknown'
+         # droping cars with no manufacturer and model
+         df.dropna(subset = ['manufacturer', 'model'], how = 'all', inplace = True)
 
-      # filling manufacturer and model 'unknown'
-      df['manufacturer'] = df['manufacturer'].fillna('unknown')
-      df['model'] = df['model'].fillna('unknown')
-we also got some typos in the 'model' column so i used some regular expressions to find and fill them
-with 'unknown' if the row contains a 'manufacurer' and drop them if not.
+2. then filled the remaining missing values in the 'manufacturer' column with a new category 'unknown'
+
+         # filling manufacturer with'unknown'
+         df['manufacturer'] = df['manufacturer'].fillna('unknown')
+3. dropped the null values in the model column
+   
+         df.dropna(subset = 'model', inplace = True)
+
+we also got some typos in the 'model' column so i used some regular expressions to find and drop them
       
-      # creating a mask for the condition
-      mask = ((df['model'].str.contains('^[\W\d]+$') == True) & (df['manufacturer'] == 'unknown'))
-      mask2 = ((df['model'].str.contains('[@%$*#%*!=]') == True) &  (df['manufacturer'] == 'unknown'))
-      
-      # dropping typos with null manufacturer (unknown)
-      df = df[~mask]
-      df = df[~mask2]
-      
-      # filling the remaining with 'unknown'
-      df.loc[df['model'].str.contains('^[\W\d]+$') == True, 'model'] = 'unknown'
-      df.loc[df['model'].str.contains('[@%$*#%*!=]') == True, 'model'] = 'unknown'
-
       # dropping strange inputs
       df = df[df['model'].str.contains('[♿🔥]') == False]
       df = df[df['model'].str.contains('^[,-./]') == False]
+      df = df[df['model'].str.contains('^[\W\d]+$') == False]
+      df = df[df['model'].str.contains('[@%$*#%*!=]') == False]
 
+---
 
-### 5- Categorical columns with dominating values
+### 5- Title Status, Transmission, and Feul
 
-
-| Column       | Unique Values | Missing Values | Missing Percentage |
+| Column        | Number Of Unique Values | Number Of Missing Values | Missing Values Percentage |
 |--------------|---------------|----------------|---------------------|
 | Transmission | 3             | 2556           | 0.60%               |
 | Title Status | 6             | 8242           | 1.93%               |
 | Fuel         | 5             | 3013           | 0.71%               |
 
-these column have low null percentage and dominating values as the following: 
+these columns have common characteristics :
+1. low missing values percentage 
+2. dominating values as the following:
+   - 79% of 'transmission' is 'automatic'
+   - 97% of 'title_status' is 'clean'
+   - 84% of 'fuel' is 'gas'
+     
 
-| Column        | Value       | Proportion (%) |
-|---------------|-------------|-----------------|
-| transmission  | automatic   | 79.0            |
-| title_status  | clean       | 97.0            |
-| fuel          | gas         | 84.0            |
-
-there will be no bias by filling them with the mode value
+so, there won't be any bias by filling them with the mode value
 
       # filling title_status with mode value
       df['title_status'] = df['title_status'].fillna('clean')
@@ -245,74 +239,113 @@ there will be no bias by filling them with the mode value
       # filling fuel with mode value
       df['fuel'].fillna(df['fuel'].mode().iloc[0], inplace = True)
 
-### Categorical columns related to the 'model'
+---
 
-| Column    | Unique Values | Missing Values | Missing Percentage |
-|-----------|---------------|----------------|---------------------|
-| Type      | 13            | 92858          | 21.75%              |
-| Cylinders | 8             | 177678         | 41.62%              |
-| Drive     | 3             | 130567         | 30.59%              |
+### Type, Cylinders, Drive, Size
 
-these columns have high null percentage and with no significant dominating values
-and sense the dataset contains 426,880 row and 29667 model, i populated these missing values with mode 
-value per each model.
+| Column     | Number Of Unique Values | Number Of Missing Values | Missing Values Percentage |
+|------------|-------------------------|--------------------------|---------------------------|
+| Type       | 13                      | 92,858                   | 21.75%                    |
+| Cylinders  | 8                       | 177,678                  | 41.62%                    |
+| Drive      | 3                       | 130,567                  | 30.59%                    |
+| Size       | 4                       | 306,361                  | 71.77%                    |
+
+
+these columns are totally the opposite, they have
+1. high missing values percentage
+2. no obvious dominating values
+
+since the dataset contains 426,880 rows and 29,667 models, i took two different paths:
+
+**1. populated these missing values with mode value per each model.**
+
+```
+    # create a list for unique models
+      models = df['model'].unique()
 
       # empty lists to save the result
-       typ = []
+      typ = []
       model_type = []
       models_null_type = []
       
       for model in models:
           # type mode value
           mode_value = df[df['model'] == model]['type'].mode()
-          
-          if not mode_value.empty:
-              
-              # assining values to the lists
-              model_type.append(model)
-              typ.append(mode_value.iloc[0])
-          else:
-              # models with no mode value
-              models_null_type.append(model)
-              
-      # displaying the length of each list        
-      print(len(model_type), len(typ), len(models_null_type)) 
+    
+    if not mode_value.empty:
+        
+        # assining values to the lists
+        model_type.append(model)
+        typ.append(mode_value.iloc[0])
+    else:
+        # models with no mode value
+        models_null_type.append(model)
+        
+# displaying the length of each list        
+print(len(model_type), len(typ), len(models_null_type))
+
+```  
+
+         # filling nulls with the mode value per each 'model'
+         for i in range(min(len(model_type), len(typ))):
+             
+             df.loc[(df['type'].isnull()) & (df['model'] == model_type[i]), 'type'] = typ[i]
+
+
+
+**2. I used the 'bfill' method to fill them after sorting the data by manufacturer, model, and then the column itself.**
+
+```
+columns = ['cylinders', 'type', 'drive', 'size']
+
+for column in columns:
+    df.sort_values(by = ['manufacturer', 'model', column], inplace = True)
+    df[column].fillna(method = 'bfill', inplace = True)
+```
+
+Example:
+
+the missing values (NaN) will take the previous value based on each 'model' in every 'manufacurer'
+
+| row number  | Manufacturer | Model              | Drive |
+|---|--------------|--------------------|-------|
+| 1 | Acura        | 2002 rsx type s    | fwd   |
+| 2 | Acura        | 3.0cl               | fwd   |
+| 3 | Acura        | 3.0cl               | fwd   |
+| 4 | Acura        | 3.0cl               | NaN   |
+| 5 | Acura        | 3.2 cl type s      | fwd   |
+| 6 | Acura        | 3.2 cl type s      | NaN   |
+| 7 | Acura        | 3.2 cl type s      | NaN   |
+| 8 | Acura        | 3.2 cl type s      | NaN   |
+| 9 | Acura        | 3.2 cl type s      | NaN   |
+|10 | Acura        | 3.2 tl              | fwd   |
+
+
+Then i decided to go for the second one after comparing the intial distribution with the results as it was closer to the original data.
+
+Example:
+
+Values in the 'Cylinders' column
+
+|            Values             | Original Data (with missing values) | Imputation Method 1 | Imputation Method 2 |
+|-------------------------|------------------------------------|----------------------|----------------------|
+| 6 cylinders             | 38.0                               | 33.0                 | 36.0                 |
+| 4 cylinders             | 31.0                               | 29.0                 | 35.0                 |
+| 8 cylinders             | 29.0                               | 27.0                 | 26.0                 |
+| 5 cylinders             | 1.0                                | -                    | 1.0                  |
+| 10 cylinders            | 1.0                                | 1.0                  | 1.0                  |
+| other                   | 1.0                                | 0.0                  | 1.0                  |
+| 3 cylinders             | 0.0                                | 0.0                  | 1.0                  |
+| 12 cylinders            | 0.0                                | 0.0                  | 0.0                  |
 
 
 
 
 
 
-these columns have dominatig values:
-fuel(gas 85%)
-title_status(clean 96%)
-transmission(automatic 80%)
-in addition to a low number of missing values
-so i filled the missing values with the mode per each column.
-
-      # filling title_status with mode value
-      df['title_status'] = df['title_status'].fillna('clean')
-      
-      # filling transmission with mode value
-      df['transmission'].fillna(df['transmission'].mode().iloc[0], inplace = True)
-      
-      # filling fuel with mode value
-      df['fuel'].fillna(df['fuel'].mode().iloc[0], inplace = True)
 
 
-high percentage of missing values in :
-['condition', 'cylinders', 'VIN', 'drive', 'type', 'paint_color']
 
-high skewness in : 
-['price', 'odometer', 'year']
 
-dominating values in categorical columns like:
-fuel(gas 85%)
-title_status(clean 96%)
-transmission(automatic 80%)
-in addition to a low number of missing values
-
-all the data were input ('posing_date') in 2021
-some inconsistencies with the 'year' as it's after the posting year
 
 
