@@ -342,7 +342,7 @@ Values in the 'Cylinders' column
 
 
 ### 7- VIN & paint_color
-1. The VIN (Vehicle Identification Number) itself isn't important, but the it's existence, so i converted it to a binary column
+1. The VIN (Vehicle Identification Number) itself isn't important, but its' existence, so i converted it to a binary column
    1. 1 for existing
    2. 0 for missing
 ```
