@@ -325,7 +325,7 @@ Then i decided to go for the second one after comparing the intial distribution 
 
 Example:
 
-Values in the 'Cylinders' column
+Values' percentage in the 'Cylinders' column
 
 |            Values             | Original Data (with missing values) | Imputation Method 1 | Imputation Method 2 |
 |-------------------------|------------------------------------|----------------------|----------------------|
