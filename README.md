@@ -355,7 +355,7 @@ df.loc[df['VIN'].notnull(), 'VIN'] = 1
 df['VIN'].fillna(0, inplace = True)
 
 ```
-2. and for the paint_color, i filled it's missing values with 'custom', as it's not a significant feature.
+2. and for the paint_color, i filled its' missing values with 'custom', as it's not a significant feature.
 
   ```
    df['paint_color'] = df['paint_color'].fillna('custom')
@@ -370,7 +370,7 @@ df['VIN'].fillna(0, inplace = True)
 | Lat    | 53,181                  | 6,549                    | 1.53%                     |
 | Long   | 53,772                  | 6,549                    | 1.53%                     |
 
-we only have some missing values here so i populated them with median value based the the region column
+we only have some missing values here so i populated them with median value based on the the region column
       
       # populating lat & long with the median value per each 'region'
       regions = df['region'].unique()
@@ -386,7 +386,7 @@ we only have some missing values here so i populated them with median value base
 
 ## Now with the pre-final results 
 the new shape of the dataset is 
-- 359,724 rows (almost 85% of the original shape)
+- 359,724 rows (almost 85% of the original length)
 - 19 columns
 
 | Column        | Percentage of Missing Values |
