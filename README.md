@@ -427,7 +427,7 @@ till now we have handled null values, outliers, and inconsistent data, only rema
 
 | Column    | Number Of Missing Values | Missing Values Percentage |
 |-----------|--------------------------|---------------------------|
-| condition | 156,104                   | 36.70%                    |
+| condition | 132,019                  | 36.70%                    |
 
 this feature is independent, some other features might affect it like (odometer, year, ...) but that's not oblige.
 
