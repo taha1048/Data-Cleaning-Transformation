@@ -384,7 +384,7 @@ we only have some missing values here so i populated them with median value base
 
 ---
 
-## Now with the pre-final results 
+## Pre-final results 
 the new shape of the dataset is 
 - 359,724 rows (almost 85% of the original length)
 - 19 columns
@@ -411,9 +411,39 @@ the new shape of the dataset is
 | lat           | 0.0%                          |
 | long          | 0.0%                          |
 
+till now we have handled null values, outliers, and inconsistent data, only remains the 'condition' column.
 
+---
 
+### 9- Condition
 
+| Column    | Number Of Missing Values | Missing Values Percentage |
+|-----------|--------------------------|---------------------------|
+| condition | 156,104                   | 36.70%                    |
+
+this feature is independent, some other features might affect it like (odometer, year, ...) but that's not oblige.
+
+so i built a predictive model using Scikit-Learn to predict the cars' condition based on the other features in the dataset.
+
+i'm not diving into that, i recommend checking the notebook I provided above (Used_Cars_Part3 (ML)).
+
+here is the column before and after.
+
+| Condition | Before (%) | After (%) |
+|-----------|----------------------|---------------------|
+| Excellent | 38.18%               | 50.72%              |
+| Good      | 50.59%               | 40.17%              |
+| Like New  | 8.20%                | 6.95%               |
+| Fair      | 2.45%                | 1.71%               |
+| New       | 0.40%                | 0.33%               |
+| Salvage   | 0.18%                | 0.11%               |
+
+---
+
+# The End
+I really enjoyed this project as i learned a lot through it. it's always fun to get stuck, search, and finally find answers ^-^. 
+
+feel free to review the attachments and stay tuned for the upcoming projects.
 
 
 
