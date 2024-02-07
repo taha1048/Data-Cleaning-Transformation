@@ -15,6 +15,14 @@
 3. Fixing typos and incosistent entries
 4. Deleting useless rows & columns
 
+---
+### Dataset
+
+The dataset used in this project can be found on Kaggle. You can access it [here](https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data).
+
+---
+
+
 ## First let's have a closer look at the data and we will check each column individually later.
 
 
